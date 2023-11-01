@@ -1,0 +1,36 @@
+body {
+    background-color: aliceblue;
+}
+
+.game-container {
+    height: 200px;
+    width: 200px;
+    border: 2px solid black;
+}
+
+.bot-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: space-evenly;
+    height: 98px;
+    width: 200px;
+    border-bottom: 1px solid black;
+}
+
+.player-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: space-evenly;
+    height:98px;
+    width: 200px;
+    border-top: 1px solid black;
+} 
+
+.square {
+    background-color: dodgerblue;
+    height: 40px;
+    width: 40px;
+    border: 2px solid black;
+}
