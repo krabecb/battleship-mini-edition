@@ -54,22 +54,16 @@ const createShip = (event) => {
     if (!checkShips()) {
         playerSquares.forEach(square => {
             if (id === square.id) {
-                if(id === '7') {
+                if (id === '7') {
                     square.style.backgroundColor = 'black'
                     playerObj.ships++
-                    if (checkShips()) {
-                        const notificationLoc = document.querySelector('.notification')
-                        notificationLoc.remove()
-                    }
+                    removeNotification()
                     return;
                 }
                 square.style.backgroundColor = 'black'
                 playerSquares[parseInt(id) + 1].style.backgroundColor = 'black'
                 playerObj.ships++
-                if (checkShips()) {
-                    const notificationLoc = document.querySelector('.notification')
-                    notificationLoc.remove()
-                }
+                removeNotification()
             }
         })
     }
@@ -77,10 +71,43 @@ const createShip = (event) => {
 
 const checkShips = () => {
     if (playerObj.ships === 2) {
-        console.log("Ships at sea!")
+        // console.log("Ships at sea!")
         return true
     } else {
         return false
+    }
+}
+
+const removeNotification = () => {
+    if (checkShips()) {
+        const notificationLoc = document.querySelector('.notification')
+        notificationLoc.remove()
+        createBotShips()
+    }
+}
+
+//CREATE BOT SHIPS
+const botObj = {
+    ships: 0,
+}
+const botSquares = document.querySelectorAll('.bot')
+
+const createBotShips = () => {
+    for (let i = 0; i < 2; i++) {
+        const rndIdx = Math.floor(Math.random() * (7 - 0) + 0)
+        console.log(rndIdx)
+        botSquares.forEach(square => {
+            if (rndIdx === parseInt(square.id)) {
+                if (rndIdx === 7) {
+                    square.setAttribute('class', 'square bot ship')
+                    botObj.ships++
+                } else {
+                    square.setAttribute('class', 'square bot ship')
+                    botSquares[rndIdx + 1].setAttribute('class', 'square bot ship')
+                    botObj.ships++
+                }
+            }
+        })
     }
 }
 
