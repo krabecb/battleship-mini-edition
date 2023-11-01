@@ -11,7 +11,9 @@ const playerContainer = document.createElement('div')
 playerContainer.setAttribute('class', 'player-container')
 gameContainer.append(playerContainer)
 
-
+const notificationContainer = document.createElement('div')
+notificationContainer.setAttribute('class', 'notification-container')
+document.body.append(notificationContainer)
 
 const populateBotSquares = () => {
     for (let i = 0; i < 8; i++) {
@@ -43,7 +45,7 @@ const playerSelect = () => {
     const notification = document.createElement('h3')
     notification.setAttribute('class', 'notification')
     notification.innerText = "Select two spots for your ships!"
-    document.body.append(notification)
+    notificationContainer.append(notification)
 }
 playerSelect()
 
@@ -52,16 +54,22 @@ const createShip = (event) => {
     if (!checkShips()) {
         playerSquares.forEach(square => {
             if (id === square.id) {
-                // console.log(`Match: event id: ${id} - square id; ${square.id}`)
                 if(id === '7') {
                     square.style.backgroundColor = 'black'
                     playerObj.ships++
+                    if (checkShips()) {
+                        const notificationLoc = document.querySelector('.notification')
+                        notificationLoc.remove()
+                    }
                     return;
                 }
                 square.style.backgroundColor = 'black'
                 playerSquares[parseInt(id) + 1].style.backgroundColor = 'black'
                 playerObj.ships++
-                console.log(playerObj.ships)
+                if (checkShips()) {
+                    const notificationLoc = document.querySelector('.notification')
+                    notificationLoc.remove()
+                }
             }
         })
     }
@@ -79,7 +87,6 @@ const checkShips = () => {
 //EVENT LISTENERS
 playerSquares.forEach(square => {
     square.addEventListener('click', (e) => {
-        // console.log(`clicked! id: ${e.currentTarget.id}`)
         createShip(e)
     })
 })
