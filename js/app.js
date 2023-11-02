@@ -162,14 +162,47 @@ const playerTurn = () => {
                 botObj.hitsRemaining--
                 playerHits.innerText = `Player hits remaining: ${botObj.hitsRemaining}`
                 checkWin()
+            } else {
+                console.log("You missed!")
+                botTurn()
             }
-
         })
     })
 }
 
 const checkWin = () => {
-    console.log("Checking...")
+    if(botObj.hitsRemaining === 0) {
+        console.log("YOU WIN")
+    } else {
+        botTurn()
+    }
+}
+
+//BOT TURN
+const botTurn = () => {
+    console.log("Incoming enemy attack!")
+    const rndIdx = Math.floor(Math.random() * (7 - 0) + 0)
+    playerSquares.forEach(square => {
+        if (rndIdx === parseInt(square.id)) {
+            //EDGE: Check if square has already been hit. If so, new rndIdx
+            if (square.classList.contains('hit')) {
+                console.log(`Player square contains hit attribute: ${square.classList}. Here comes another attack!`)
+                botTurn()
+            } else {
+                if (square.style.backgroundColor === 'black') {
+                console.log(`We're hit! square id: ${parseInt(square.id)} - rndIdx: ${rndIdx}`)
+                square.setAttribute('class', 'square player ship hit')
+                square.style.backgroundColor = 'red'
+                playerObj.hitsRemaining--
+                botHits.innerText = `Enemy hits remaining: ${playerObj.hitsRemaining}`
+                // checkLose()
+                } else {
+                    console.log(`The enemy missed: ${square.id}`)
+                }
+            }
+            //Every square isn't a hit. Check if the current square has a black background color
+        }
+    })
 }
 
 //EVENT LISTENERS
