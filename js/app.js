@@ -1,7 +1,11 @@
 //RENDER GAME AREA
+const mainContainer = document.createElement('div')
+mainContainer.setAttribute('class', 'main-container')
+document.body.append(mainContainer)
+
 const gameContainer = document.createElement('div')
 gameContainer.setAttribute('class', 'game-container')
-document.body.append(gameContainer)
+mainContainer.append(gameContainer)
 
 const botContainer = document.createElement('div')
 botContainer.setAttribute('class', 'bot-container')
@@ -13,7 +17,7 @@ gameContainer.append(playerContainer)
 
 const notificationContainer = document.createElement('div')
 notificationContainer.setAttribute('class', 'notification-container')
-document.body.append(notificationContainer)
+mainContainer.append(notificationContainer)
 
 const populateBotSquares = () => {
     for (let i = 0; i < 8; i++) {
@@ -109,6 +113,7 @@ const createBotShips = () => {
             }
         })
     }
+    //HITS REMAINING
 }
 
 //EVENT LISTENERS
