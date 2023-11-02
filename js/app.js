@@ -147,15 +147,9 @@ const hitsRemaining = () => {
             botObj.hitsRemaining++
         }
     })
-    // console.log(botObj)
-    // console.log(playerObj)
-    // botHits.setAttribute('class', 'bot-hits')
     botHits.innerText = `Enemy hits remaining: ${playerObj.hitsRemaining}`
-    // hitsContainer.append(botHits)
 
-    // playerHits.setAttribute('class', 'player-hits')
     playerHits.innerText = `Player hits remaining: ${botObj.hitsRemaining}`
-    // hitsContainer.append(playerHits)
     playerTurn()
 }
 
@@ -163,15 +157,18 @@ const hitsRemaining = () => {
 const playerTurn = () => {
     botSquares.forEach(square => {
         square.addEventListener('click', (e) => {
-            // console.log(e.target.classList)
             if (e.target.classList.contains("ship")) {
-                // console.log("HIT!")
+                const notification = document.createElement('h3')
+                notification.innerText = "Direct hit!"
+                notificationContainer.prepend(notification)
                 e.target.style.backgroundColor = 'red'
                 botObj.hitsRemaining--
                 playerHits.innerText = `Player hits remaining: ${botObj.hitsRemaining}`
                 checkWin()
             } else {
-                console.log("You missed!")
+                const notification = document.createElement('h3')
+                notification.innerText = "We missed!"
+                notificationContainer.prepend(notification)
                 botTurn()
             }
         })
@@ -179,8 +176,10 @@ const playerTurn = () => {
 }
 
 const checkWin = () => {
-    if(botObj.hitsRemaining === 0) {
-        console.log("YOU WIN")
+    if (botObj.hitsRemaining === 0) {
+        const notification = document.createElement('h3')
+        notification.innerText = "We won!"
+        notificationContainer.prepend(notification)
     } else {
         botTurn()
     }
@@ -192,25 +191,34 @@ const botTurn = () => {
     const rndIdx = Math.floor(Math.random() * (7 - 0) + 0)
     playerSquares.forEach(square => {
         if (rndIdx === parseInt(square.id)) {
-            //EDGE: Check if square has already been hit. If so, new rndIdx
             if (square.classList.contains('hit')) {
-                console.log(`Player square contains hit attribute: ${square.classList}. Here comes another attack!`)
                 botTurn()
             } else {
                 if (square.style.backgroundColor === 'black') {
-                console.log(`We're hit! square id: ${parseInt(square.id)} - rndIdx: ${rndIdx}`)
-                square.setAttribute('class', 'square player ship hit')
-                square.style.backgroundColor = 'red'
-                playerObj.hitsRemaining--
-                botHits.innerText = `Enemy hits remaining: ${playerObj.hitsRemaining}`
-                // checkLose()
+                    const notification = document.createElement('h3')
+                    notification.innerText = "Argh! We've been hit!"
+                    notificationContainer.prepend(notification)
+                    square.setAttribute('class', 'square player ship hit')
+                    square.style.backgroundColor = 'red'
+                    playerObj.hitsRemaining--
+                    botHits.innerText = `Enemy hits remaining: ${playerObj.hitsRemaining}`
+                    checkLose()
                 } else {
-                    console.log(`The enemy missed: ${square.id}`)
+                    const notification = document.createElement('h3')
+                    notification.innerText = `The enemy missed - area ${square.id}`
+                    notificationContainer.prepend(notification)
                 }
             }
-            //Every square isn't a hit. Check if the current square has a black background color
         }
     })
+}
+
+const checkLose = () => {
+    if (playerObj.hitsRemaining === 0) {
+        const notification = document.createElement('h3')
+        notification.innerText = "Mission failed! We'll get'em next time!"
+        notificationContainer.prepend(notification)
+    }
 }
 
 //EVENT LISTENERS
