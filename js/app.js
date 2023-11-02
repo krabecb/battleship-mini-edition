@@ -127,7 +127,15 @@ const createBotShips = () => {
 
 //HITS REMAINING CONTAINER
 const botHits = document.createElement('h3')
+botHits.setAttribute('class', 'bot-hits')
+botHits.innerText = `Enemy hits remaining: ${playerObj.hitsRemaining}`
+hitsContainer.append(botHits)
+
 const playerHits = document.createElement('h3')
+playerHits.setAttribute('class', 'player-hits')
+playerHits.innerText = `Player hits remaining: ${botObj.hitsRemaining}`
+hitsContainer.append(playerHits)
+
 const hitsRemaining = () => {
     playerSquares.forEach(eachSqaure => {
         if (eachSqaure.classList.contains("ship")) {
@@ -141,13 +149,13 @@ const hitsRemaining = () => {
     })
     // console.log(botObj)
     // console.log(playerObj)
-    botHits.setAttribute('class', 'bot-hits')
+    // botHits.setAttribute('class', 'bot-hits')
     botHits.innerText = `Enemy hits remaining: ${playerObj.hitsRemaining}`
-    hitsContainer.append(botHits)
+    // hitsContainer.append(botHits)
 
-    playerHits.setAttribute('class', 'player-hits')
+    // playerHits.setAttribute('class', 'player-hits')
     playerHits.innerText = `Player hits remaining: ${botObj.hitsRemaining}`
-    hitsContainer.append(playerHits)
+    // hitsContainer.append(playerHits)
     playerTurn()
 }
 

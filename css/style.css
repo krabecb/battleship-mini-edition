@@ -7,12 +7,18 @@ body {
     background-color: aliceblue;
 }
 
+h3 {
+    text-align: center;
+    padding: 5px;
+    margin: 5px 0 0 0;
+}
+
 .main-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     top: 0;
-    transform: translateY(50%);
+    transform: translateY(25%);
 }
 
 .game-container {
@@ -46,4 +52,12 @@ body {
     height: 40px;
     width: 40px;
     border: 2px solid black;
+}
+
+.notification-container {
+    background-color: darkseagreen;
+    overflow: scroll;
+    height: 150px;
+    width: 200px;
+    margin-top: 5px;
 }
