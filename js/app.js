@@ -3,6 +3,14 @@ const mainContainer = document.createElement('div')
 mainContainer.setAttribute('class', 'main-container')
 document.body.append(mainContainer)
 
+const title = document.createElement('h2')
+title.innerText = "Battleship!"
+mainContainer.append(title)
+
+const edition = document.createElement('p')
+edition.innerText = "Mini Edition"
+mainContainer.append(edition)
+
 const hitsContainer = document.createElement('div')
 hitsContainer.setAttribute('class', 'hits-container')
 mainContainer.append(hitsContainer)
@@ -65,15 +73,15 @@ const createShip = (event) => {
             if (id === square.id) {
                 if (id === '7') {
                     square.setAttribute('class', 'square player ship')
-                    square.style.backgroundColor = 'black'
+                    square.style.backgroundColor = '#262626'
                     playerObj.ships++
                     removeNotification()
                     return;
                 }
                 square.setAttribute('class', 'square player ship')
-                square.style.backgroundColor = 'black'
+                square.style.backgroundColor = '#262626'
                 playerSquares[parseInt(id) + 1].setAttribute('class', 'square player ship')
-                playerSquares[parseInt(id) + 1].style.backgroundColor = 'black'
+                playerSquares[parseInt(id) + 1].style.backgroundColor = '#262626'
                 playerObj.ships++
                 removeNotification()
             }
@@ -159,15 +167,17 @@ const playerTurn = () => {
         square.addEventListener('click', (e) => {
             if (e.target.classList.contains("ship")) {
                 const notification = document.createElement('h3')
-                notification.innerText = "Direct hit!"
+                notification.innerText = 'Direct hit!'
+                notification.style.color = '#84B09D'
                 notificationContainer.prepend(notification)
-                e.target.style.backgroundColor = 'red'
+                e.target.setAttribute('class', 'square bot ship fire')
                 botObj.hitsRemaining--
                 playerHits.innerText = `Player hits remaining: ${botObj.hitsRemaining}`
                 checkWin()
             } else {
                 const notification = document.createElement('h3')
                 notification.innerText = "We missed!"
+                notification.style.color = '#FC9D9A'
                 notificationContainer.prepend(notification)
                 botTurn()
             }
@@ -178,7 +188,8 @@ const playerTurn = () => {
 const checkWin = () => {
     if (botObj.hitsRemaining === 0) {
         const notification = document.createElement('h3')
-        notification.innerText = "We won!"
+        notification.innerText = "WE WON!"
+        notification.style.color = '#84B09D'
         notificationContainer.prepend(notification)
     } else {
         botTurn()
@@ -188,17 +199,19 @@ const checkWin = () => {
 //BOT TURN
 const botTurn = () => {
     console.log("Incoming enemy attack!")
-    const rndIdx = Math.floor(Math.random() * (7 - 0) + 0)
+    const rndIdx = Math.floor(Math.random() * (8 - 0) + 0)
     playerSquares.forEach(square => {
         if (rndIdx === parseInt(square.id)) {
-            if (square.classList.contains('hit')) {
+            if (square.classList.contains('fire')) {
                 botTurn()
             } else {
-                if (square.style.backgroundColor === 'black') {
+                console.log(square.style.backgroundColor)
+                if (square.style.backgroundColor === 'rgb(38, 38, 38)') {
                     const notification = document.createElement('h3')
                     notification.innerText = "Argh! We've been hit!"
+                    notification.style.color = '#540032'
                     notificationContainer.prepend(notification)
-                    square.setAttribute('class', 'square player ship hit')
+                    square.setAttribute('class', 'square player ship fire')
                     square.style.backgroundColor = 'red'
                     playerObj.hitsRemaining--
                     botHits.innerText = `Enemy hits remaining: ${playerObj.hitsRemaining}`
@@ -216,7 +229,9 @@ const botTurn = () => {
 const checkLose = () => {
     if (playerObj.hitsRemaining === 0) {
         const notification = document.createElement('h3')
-        notification.innerText = "Mission failed! We'll get'em next time!"
+        notification.setAttribute('class', 'fire')
+        notification.innerText = "MISSION FAILED! We'll get'em next time!"
+        notification.style.color = "ghostwhite"
         notificationContainer.prepend(notification)
     }
 }

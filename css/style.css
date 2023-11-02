@@ -1,16 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:opsz@9..144&family=Montserrat&family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
+@keyframes changeColor {
+    from, to { color: #FF4266; }
+    30%      { color: #FC9D9A; }
+    60%      { color: #FACDAC; }
+    80%      { color: #84B09D; }
+}
+
+@keyframes water {
+    from, to { background-color: #63E4F2; }
+    30%      { background-color: #3BA7BF; }
+    60%      { background-color: #2D83A6; }
+    80%      { background-color: #195973; }
+}
+
+@keyframes fire {
+    from, to { background-color: #F0433A; }
+    30%      { background-color: #C9283E; }
+    60%      { background-color: #820333; }
+    80%      { background-color: #540032; }
+}
+
+@keyframes pulse{
+    20%  {transform: scale(.9);}
+    80%  {transform: scale(1.1);}
+  }
+
 html, body {
     height: 100vh;
     margin: 0;
 }
 
 body {
-    background-color: aliceblue;
+    background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+}
+
+h2 {
+    font-family: 'Bebas Neue', 'Arial';
+    margin: 0;
 }
 
 h3 {
+    font-family: 'Bebas Neue', 'Arial';
     text-align: center;
     padding: 5px;
     margin: 5px 0 0 0;
+}
+
+p {
+    font-family: 'Shadows Into Light', 'Arial';
+    font-weight: bolder;
+    animation: changeColor 4s infinite;
+    margin: 0;
 }
 
 .main-container {
@@ -18,7 +60,7 @@ h3 {
     flex-direction: column;
     align-items: center;
     top: 0;
-    transform: translateY(25%);
+    transform: translateY(15%);
 }
 
 .game-container {
@@ -54,10 +96,19 @@ h3 {
     border: 2px solid black;
 }
 
+.square:hover {
+    animation: pulse .6s ease-in infinite;
+}
+
+.fire {
+    animation: fire 3s infinite;
+}
+
 .notification-container {
-    background-color: darkseagreen;
+    background-color: ghostwhite;
     overflow: scroll;
     height: 150px;
     width: 200px;
     margin-top: 5px;
+    border: 2px solid black;
 }
