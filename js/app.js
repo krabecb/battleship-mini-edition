@@ -91,7 +91,6 @@ const createShip = (event) => {
 
 const checkShips = () => {
     if (playerObj.ships === 2) {
-        // console.log("Ships at sea!")
         return true
     } else {
         return false
@@ -116,7 +115,6 @@ const botSquares = document.querySelectorAll('.bot')
 const createBotShips = () => {
     for (let i = 0; i < 2; i++) {
         const rndIdx = Math.floor(Math.random() * (7 - 0) + 0)
-        // console.log(rndIdx)
         botSquares.forEach(square => {
             if (rndIdx === parseInt(square.id)) {
                 if (rndIdx === 7) {
@@ -198,14 +196,12 @@ const checkWin = () => {
 
 //BOT TURN
 const botTurn = () => {
-    console.log("Incoming enemy attack!")
     const rndIdx = Math.floor(Math.random() * (8 - 0) + 0)
     playerSquares.forEach(square => {
         if (rndIdx === parseInt(square.id)) {
             if (square.classList.contains('fire')) {
                 botTurn()
             } else {
-                console.log(square.style.backgroundColor)
                 if (square.style.backgroundColor === 'rgb(38, 38, 38)') {
                     const notification = document.createElement('h3')
                     notification.innerText = "Argh! We've been hit!"
