@@ -3,6 +3,10 @@ const mainContainer = document.createElement('div')
 mainContainer.setAttribute('class', 'main-container')
 document.body.append(mainContainer)
 
+const hitsContainer = document.createElement('div')
+hitsContainer.setAttribute('class', 'hits-container')
+mainContainer.append(hitsContainer)
+
 const gameContainer = document.createElement('div')
 gameContainer.setAttribute('class', 'game-container')
 mainContainer.append(gameContainer)
@@ -42,6 +46,7 @@ populatePlayerSquares()
 //PROMPT USER TO SELECT SPOTS(2) FOR SHIPS
 const playerObj = {
     ships: 0,
+    hitsRemaining: 0,
 }
 const playerSquares = document.querySelectorAll('.player')
 
@@ -59,12 +64,15 @@ const createShip = (event) => {
         playerSquares.forEach(square => {
             if (id === square.id) {
                 if (id === '7') {
+                    square.setAttribute('class', 'square player ship')
                     square.style.backgroundColor = 'black'
                     playerObj.ships++
                     removeNotification()
                     return;
                 }
+                square.setAttribute('class', 'square player ship')
                 square.style.backgroundColor = 'black'
+                playerSquares[parseInt(id) + 1].setAttribute('class', 'square player ship')
                 playerSquares[parseInt(id) + 1].style.backgroundColor = 'black'
                 playerObj.ships++
                 removeNotification()
@@ -93,13 +101,14 @@ const removeNotification = () => {
 //CREATE BOT SHIPS
 const botObj = {
     ships: 0,
+    hitsRemaining: 0,
 }
 const botSquares = document.querySelectorAll('.bot')
 
 const createBotShips = () => {
     for (let i = 0; i < 2; i++) {
         const rndIdx = Math.floor(Math.random() * (7 - 0) + 0)
-        console.log(rndIdx)
+        // console.log(rndIdx)
         botSquares.forEach(square => {
             if (rndIdx === parseInt(square.id)) {
                 if (rndIdx === 7) {
@@ -113,8 +122,36 @@ const createBotShips = () => {
             }
         })
     }
-    //HITS REMAINING
+    hitsRemaining()
 }
+
+//HITS REMAINING CONTAINER
+const hitsRemaining = () => {
+    playerSquares.forEach(eachSqaure => {
+        if (eachSqaure.classList.contains("ship")) {
+            playerObj.hitsRemaining++
+        }
+    })
+    botSquares.forEach(eachSqaure => {
+        if (eachSqaure.classList.contains("ship")) {
+            botObj.hitsRemaining++
+        }
+    })
+    // console.log(botObj)
+    // console.log(playerObj)
+    const botHits = document.createElement('h3')
+    botHits.setAttribute('class', 'bot-hits')
+    botHits.innerText = `Enemy hits remaining: ${playerObj.hitsRemaining}`
+    hitsContainer.append(botHits)
+
+    const playerHits = document.createElement('h3')
+    playerHits.setAttribute('class', 'player-hits')
+    playerHits.innerText = `Player hits remaining: ${botObj.hitsRemaining}`
+    hitsContainer.append(playerHits)
+}
+
+
+
 
 //EVENT LISTENERS
 playerSquares.forEach(square => {
