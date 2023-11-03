@@ -41,6 +41,11 @@ const playWin = () => {
     audio.play()
 }
 
+const playLose = () => {
+    const audio = document.querySelector('#lose')
+    audio.play()
+}
+
 const populateBotSquares = () => {
     for (let i = 0; i < 8; i++) {
         const div = document.createElement('div')
@@ -186,8 +191,9 @@ const playerTurn = () => {
                 checkWin()
             } else {
                 const notification = document.createElement('h3')
-                notification.innerText = "We missed!"
+                notification.innerText = 'We missed!'
                 notification.style.color = '#FC9D9A'
+                e.target.style.backgroundColor = 'ghostwhite'
                 notificationContainer.prepend(notification)
                 botTurn()
             }
@@ -240,6 +246,7 @@ const botTurn = () => {
 
 const checkLose = () => {
     if (playerObj.hitsRemaining === 0) {
+        playLose()
         const notification = document.createElement('h3')
         notification.setAttribute('id', 'fire')
         notification.innerText = "MISSION FAILED! We'll get'em next time!"
