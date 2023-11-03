@@ -100,7 +100,7 @@ p {
     animation: pulse .6s ease-in infinite;
 }
 
-.fire {
+#fire {
     animation: fire 3s infinite;
 }
 
