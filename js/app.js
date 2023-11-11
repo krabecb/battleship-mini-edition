@@ -175,7 +175,14 @@ const hitsRemaining = () => {
 }
 
 //PLAYER TURN
+const playerPrompt = () => {
+    const notification = document.createElement('h3')
+    notification.innerText = 'Where should we aim?'
+    notificationContainer.append(notification)
+}
+
 const playerTurn = () => {
+    playerPrompt()
     botSquares.forEach(square => {
         square.addEventListener('click', (e) => {
             playAudio()
