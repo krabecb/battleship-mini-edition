@@ -100,10 +100,6 @@ p {
     animation: pulse .6s ease-in infinite;
 }
 
-#fire {
-    animation: fire 3s infinite;
-}
-
 .notification-container {
     background-color: ghostwhite;
     overflow: scroll;
@@ -111,4 +107,8 @@ p {
     width: 200px;
     margin-top: 5px;
     border: 2px solid black;
+}
+
+#fire {
+    animation: fire 3s infinite;
 }
